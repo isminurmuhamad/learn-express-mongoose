@@ -18,7 +18,10 @@
         </li>
         <li>Harga: <%= product.price %>
         </li>
-        <li>Kategori: <%= product.category %>
+        <li>
+            Kategori: <a href="/products?category=<%= product.category %>">
+                <%= product.category %>
+            </a>
         </li>
     </ul>
     <a href="/products">All Products</a>
