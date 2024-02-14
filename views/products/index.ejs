@@ -12,7 +12,9 @@
     <ul>
         <% for(let product of products){ %>
             <li>
-                <%= product.name %> - <%= product.brand %>
+                <a href="/products/<%= product._id %>">
+                    <%= product.name %> - <%= product.brand %>
+                </a>
             </li>
             <% } %>
     </ul>
