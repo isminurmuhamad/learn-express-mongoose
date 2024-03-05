@@ -22,7 +22,7 @@ const productSchema = new mongoose.Schema({
         enum: ['Baju', 'Celana', 'Aksesoris', 'Jaket'],
     },
     garment: {
-        type: Schema.Types.ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
         ref: 'Garment',
     }
 })

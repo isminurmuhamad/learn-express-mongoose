@@ -7,6 +7,7 @@ const ErrorHandler = require('./ErrorHandler');
 
 /* Models*/
 const Product = require('./models/product')
+const Garment = require('./models/garment')
 
 // connect to mongodb
 mongoose.connect('mongodb://127.0.0.1:27017/shop_db')
@@ -31,6 +32,21 @@ function warpAsync(fn) {
 app.get('/', (req, res) => {
     res.send('Hello World')
 })
+
+app.get('/garments', warpAsync(async (req, res) => {
+    const garments = await Garment.find({})
+    res.render('garment/index', { garments })
+}))
+
+app.get('/garments/create', (req, res) => {
+    res.render('garment/create')
+})
+
+app.post('/garments', warpAsync(async (req, res) => {
+    const garment = new Garment(req.body)
+    await garment.save()
+    res.redirect('/garments')
+}))
 
 app.get('/products', async (req, res) => {
     const { category } = req.query
