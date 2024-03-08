@@ -48,6 +48,12 @@ app.post('/garments', warpAsync(async (req, res) => {
     res.redirect('/garments')
 }))
 
+app.get('/garments/:id', warpAsync(async (req, res) => {
+    const { id } = req.params
+    const garment = await Garment.findById(id)
+    res.render('garment/show', { garment })
+}))
+
 app.get('/products', async (req, res) => {
     const { category } = req.query
     if (category) {
