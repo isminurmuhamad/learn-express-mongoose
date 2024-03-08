@@ -54,6 +54,23 @@ app.get('/garments/:id', warpAsync(async (req, res) => {
     res.render('garment/show', { garment })
 }))
 
+// /garments/:garment_id/product/create
+app.get('/garments/:garment_id/products/create', (req, res) => {
+    const { garment_id } = req.params
+    res.render('products/create', { garment_id })
+})
+
+// /garments/:garment_id/product/
+app.post('/garments/:garment_id/products', warpAsync(async (req, res) => {
+    const { garment_id } = req.params
+    const garment = await Garment.findById(garment_id)
+    const product = new Product(req.body)
+    garment.products.push(product)
+    await product.save()
+    console.log(garment)
+    res.redirect(`/garments/${garment_id}`)
+}))
+
 app.get('/products', async (req, res) => {
     const { category } = req.query
     if (category) {
