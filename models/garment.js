@@ -1,6 +1,7 @@
 const mongoose = require('mongoose')
+const Product = require('./product')
 
-const germanetSchema = new mongoose.Schema({
+const germentSchema = new mongoose.Schema({
     name: {
         type: String,
         required: [true, 'Nama tidak boleh kosong']
@@ -18,6 +19,13 @@ const germanetSchema = new mongoose.Schema({
     }]
 })
 
-const Garment = mongoose.model('Garment', germanetSchema)
+germentSchema.post('findOneAndDelete', async function (garment) {
+    if (garment.products.length) {
+        const res = await Product.deleteMany({ _id: { $in: garment.products } })
+        console.log(res)
+    }
+})
+
+const Garment = mongoose.model('Garment', germentSchema)
 
 module.exports = Garment
